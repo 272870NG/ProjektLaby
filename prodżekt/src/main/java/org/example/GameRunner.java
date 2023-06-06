@@ -13,6 +13,6 @@ public class GameRunner {
         do {
             GameAction nextAction = gameActionsProvider.next();
             gameStateHolder.applyGameAction(nextAction);
-        } while (gameStateHolder.playerIsAlive() && !gameStateHolder.playerHarReachedFinalRoom());
+        } while (gameStateHolder.playerIsAlive() && !gameStateHolder.playerHasReachedDestination());
     }
 }

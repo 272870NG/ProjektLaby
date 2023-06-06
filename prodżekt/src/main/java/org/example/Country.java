@@ -14,6 +14,10 @@ public class Country {
         this.neighbours = neighbours;
     }
 
+    public List<String> getNeighbours(){return neighbours;}
+
+
+
     @Override
     public String toString() {
         return "Country{" +

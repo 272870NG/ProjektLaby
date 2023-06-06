@@ -2,6 +2,8 @@ package org.example;
 
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 public class GameStateHolder {
     private static List<GameRule> RULES_TO_APPLY_EACH_ACTION = List.of(
@@ -12,10 +14,13 @@ public class GameStateHolder {
 
     private Map<GameObject, Country> gameMap;
 
+    private final Country destination;
 
-    public GameStateHolder(List<Country> europe, Map<GameObject, Country> gameMap) {
+
+    public GameStateHolder(List<Country> europe, Map<GameObject, Country> gameMap,Country destination) {
         this.europe = europe;
         this.gameMap = gameMap;
+        this.destination = destination;
     }
 
     public void applyGameAction(GameAction gameAction) {
@@ -27,31 +32,40 @@ public class GameStateHolder {
     }
 
     public boolean playerIsAlive() {
-        return true;
+        try {
+            GameObject player = gameMap.keySet()
+                    .stream()
+                    .filter(gameObject -> gameObject instanceof Player)
+                    .findFirst()
+                    .orElseThrow();
+            return true;
+        } catch(Exception NoSuchElementException){return false;}
     }
 
-    public boolean playerHarReachedFinalRoom() {
-        Country lastRoom = europe.get(europe.size() - 1);
-
-        return lastRoom.equals(findPlayerCountry());
+    public boolean playerHasReachedDestination() {
+        return destination.equals(findPlayerCountry());
     }
 
+    public String getDestinationName(){return destination.getName();}
 
     Country findPlayerCountry() {
-        GameObject player = gameMap.keySet()
-                .stream()
-                .filter(it -> it instanceof Player)
-                .findFirst()
-                .orElseThrow();
+        try {
+            GameObject player = gameMap.keySet()
+                    .stream()
+                    .filter(it -> it instanceof Player)
+                    .findFirst()
+                    .orElseThrow();
 
-        return gameMap.get(player);
+            return gameMap.get(player);
+        }
+        catch(Exception NoSuchElementException){return null;}
     }
 
 
     @Override
     public String toString() {
         return "GameStateHolder{" +
-                "hallway=" + europe +
+                "europe=" + europe +
                 ", gameMap=" + gameMap +
                 '}';
     }

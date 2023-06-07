@@ -39,13 +39,13 @@ public class PlayerEncountersBandit implements GameRule {
             if (Math.round(Math.random()) == 1) {
                 HashMap<GameObject, Country> newState = new HashMap<>(currentState);
                 newState.remove(bandit);
-                System.out.println("Player won");
+                System.out.println("Player lived");
                 System.out.println("----------");
                 return newState;
             } else {
                 HashMap<GameObject, Country> newState = new HashMap<>(currentState);
                 newState.remove(player);
-                System.out.println("Player lost");
+                System.out.println("Player died");
                 System.out.println("-----------");
                 return newState;
             }

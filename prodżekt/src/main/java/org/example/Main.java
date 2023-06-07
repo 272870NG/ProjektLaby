@@ -20,7 +20,7 @@ public class Main {
         runner.run();
 
         if(gameState.playerHasReachedDestination() && gameState.playerIsAlive()){
-            System.out.println("you won");
+            System.out.println("You reached your destination, great victory");
             System.out.println("--------");
         } else {
             System.out.println("You died");

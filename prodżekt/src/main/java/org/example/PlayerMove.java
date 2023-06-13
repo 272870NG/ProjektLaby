@@ -17,29 +17,14 @@ public class PlayerMove implements GameAction{
         Country currentPlayerCountry = currentState.get(player);
 
 
-        //wybierz kolejny kraj
-        int countryOfChoice = 0;
-        for(String country: currentPlayerCountry.getNeighbours()){
-            System.out.print(countryOfChoice + "-" + country + " ");
-            countryOfChoice++;
-        }
-        while(true) {
-            System.out.print("\nTo choose next country type an appropriate number: ");
-            countryOfChoice = new Scanner(System.in).next().charAt(0) - 48;
-            System.out.println("----------------------------------------------------");
-            if(countryOfChoice < currentPlayerCountry.getNeighbours().size()){break;}
-        }
-        for(Country country:europe){
-            if(country.getName().equals(currentPlayerCountry.getNeighbours().get(countryOfChoice))){
-                countryOfChoice = europe.indexOf(country);
-                break;
-            }
-        }
+        //wybierz kolejny kraj (dodać do innej klasy)
+        // int countryOfChoice = new UserPrompter().askForNextCountry(currentPlayerCountry,europe);
 
+        int currentPlayerCountryIndex = europe.indexOf(currentPlayerCountry) + 1;
         // stworz nowy stan w oparciu o stary
         HashMap<GameObject,Country> newState = new HashMap<>(currentState);
         // umiesc gracza
-        newState.put(player, europe.get(countryOfChoice));
+        newState.put(player, europe.get(currentPlayerCountryIndex));
         // zwroc stan
         return newState;
     }

@@ -23,7 +23,7 @@ public class Main {
             System.out.println("You reached your destination, great victory");
             System.out.println("--------");
         } else {
-            System.out.println("You died");
+            System.out.println("You lost");
             System.out.println("--------");
         }
 

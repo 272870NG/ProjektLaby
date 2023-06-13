@@ -5,5 +5,5 @@ import java.util.Map;
 
 public interface GameRule {
 
-    Map<GameObject, Country> applyRule(Map<GameObject, Country> currentState, List<Country> hallway);
+    Map<GameObject, Country> applyRule(Map<GameObject, Country> currentState, List<Country> europe);
 }

@@ -37,21 +37,30 @@ public class FixedGameState {
 
 
         Player player = new Player();
-        Country destination = europe.get((int)Math.round(Math.random() * (15) + 1));
+        Country destination = europe.get((int)Math.round(Math.random() * 14 + 1));
 
-        int randomCountry;
+        int randomBanditCountry;
         while(true){
-            randomCountry = (int)Math.round(Math.random() * (15) + 1);
-            if(!destination.getName().equals(europe.get(randomCountry).getName())){break;}
+            randomBanditCountry = (int)Math.round(Math.random() * 14 + 1);
+            if(!destination.getName().equals(europe.get(randomBanditCountry).getName())){break;}
         }
 
         Bandit bandit = new Bandit();
+
+        int randomMerchantCountry;
+        while(true){
+            randomMerchantCountry = (int)Math.round(Math.random() * 14 + 1);
+            if(!destination.getName().equals(europe.get(randomMerchantCountry).getName())){break;}
+        }
+
+        Merchant merchant = new Merchant();
 
 
         return new GameStateHolder(
                 europe,
                 Map.of(player, startingCountry,
-                        bandit, europe.get(randomCountry)),
+                        bandit, europe.get(randomBanditCountry),
+                        merchant, europe.get(randomMerchantCountry)),
                 destination
         );
     }

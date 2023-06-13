@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public class PlayerEncountersBandit implements GameRule {
     @Override
-    public Map<GameObject, Country> applyRule(Map<GameObject, Country> currentState, List<Country> hallway) {
+    public Map<GameObject, Country> applyRule(Map<GameObject, Country> currentState, List<Country> europe) {
         System.out.println("Player fights bandit?");
         System.out.println("---------------------");
         // Znajdz gracza
@@ -18,7 +18,7 @@ public class PlayerEncountersBandit implements GameRule {
                 .orElseThrow();
         Country currentPlayerCountry = currentState.get(player);
         // Znajdz bandyte
-        Country currentbanditCountry;
+        Country currentBanditCountry;
         GameObject bandit;
         try {
             bandit = currentState.keySet()
@@ -26,29 +26,34 @@ public class PlayerEncountersBandit implements GameRule {
                     .filter(gameObject -> gameObject instanceof Bandit)
                     .findFirst()
                     .orElseThrow();
-            currentbanditCountry = currentState.get(bandit);
+            currentBanditCountry = currentState.get(bandit);
         }
         catch(Exception NoSuchEllementException){return currentState;}
 
 
 
 
-        if (currentbanditCountry.equals(currentPlayerCountry)) {
+//        if (currentBanditCountry.equals(currentPlayerCountry)) {
+//            System.out.println("Player fights bandit");
+//            System.out.println("--------------------");
+//            if (Math.round(Math.random()) == 1) {
+//                HashMap<GameObject, Country> newState = new HashMap<>(currentState);
+//                newState.remove(bandit);
+//                System.out.println("Player lived");
+//                System.out.println("----------");
+//                return newState;
+//            } else {
+//                HashMap<GameObject, Country> newState = new HashMap<>(currentState);
+//                newState.remove(player);
+//                System.out.println("Player died");
+//                System.out.println("-----------");
+//                return newState;
+//            }
+//        }
+        if (currentBanditCountry.equals(currentPlayerCountry)) {
             System.out.println("Player fights bandit");
             System.out.println("--------------------");
-            if (Math.round(Math.random()) == 1) {
-                HashMap<GameObject, Country> newState = new HashMap<>(currentState);
-                newState.remove(bandit);
-                System.out.println("Player lived");
-                System.out.println("----------");
-                return newState;
-            } else {
-                HashMap<GameObject, Country> newState = new HashMap<>(currentState);
-                newState.remove(player);
-                System.out.println("Player died");
-                System.out.println("-----------");
-                return newState;
-            }
+            return new PlayerFightsBandit().applyAction(currentState,europe);
         }
         return currentState;
     }

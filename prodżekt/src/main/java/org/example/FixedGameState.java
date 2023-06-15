@@ -39,19 +39,19 @@ public class FixedGameState {
         Player player = new Player();
         Country destination = europe.get((int)Math.round(Math.random() * 14 + 1));
 
-        int randomBanditCountry;
-        while(true){
-            randomBanditCountry = (int)Math.round(Math.random() * 14 + 1);
-            if(!destination.getName().equals(europe.get(randomBanditCountry).getName())){break;}
-        }
+        int randomBanditCountry = 2;
+//        while(true){
+//            randomBanditCountry = (int)Math.round(Math.random() * 14 + 1);
+//            if(!destination.getName().equals(europe.get(randomBanditCountry).getName())){break;}
+//        }
 
         Bandit bandit = new Bandit();
 
-        int randomMerchantCountry;
-        while(true){
-            randomMerchantCountry = (int)Math.round(Math.random() * 14 + 1);
-            if(!destination.getName().equals(europe.get(randomMerchantCountry).getName())){break;}
-        }
+        int randomMerchantCountry = 1;
+//        while(true){
+//            randomMerchantCountry = (int)Math.round(Math.random() * 14 + 1);
+//            if(!destination.getName().equals(europe.get(randomMerchantCountry).getName())){break;}
+//        }
 
         Merchant merchant = new Merchant();
 

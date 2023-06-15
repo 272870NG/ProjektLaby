@@ -9,30 +9,21 @@ public class PlayerEncountersMerchant implements GameRule{
         System.out.println("Player encounters merchant?");
         System.out.println("---------------------------");
         // Znajdz gracza
-        GameObject player = currentState.keySet()
-                .stream()
-                .filter(gameObject -> gameObject instanceof Player)
-                .findFirst()
-                .orElseThrow();
+        GameObjectFinder finder = new GameObjectFinder();
+
+        GameObject player = finder.findPlayer(currentState);
         Country currentPlayerCountry = currentState.get(player);
+        Player player1 = (Player) player;
 
         // Znajdz handlarza
-        Country currentMerchantCountry;
-        GameObject merchant;
-        try {
-            merchant = currentState.keySet()
-                    .stream()
-                    .filter(gameObject -> gameObject instanceof Merchant)
-                    .findFirst()
-                    .orElseThrow();
-            currentMerchantCountry = currentState.get(merchant);
-        }
-        catch(Exception NoSuchEllementException){return currentState;}
+        GameObject merchant = finder.findMerchant(currentState);
+        Country currentMerchantCountry = currentState.get(merchant);
+
         if (currentMerchantCountry.equals(currentPlayerCountry)) {
             System.out.println("Pokaz mi swoje towary");
             System.out.println("--------------------");
-            if(new UserPrompter().dealingWithMerchant() == 0){player.getWeapon();}
-            else{player.getSteroids();}
+            if(new UserPrompter().dealingWithMerchant() == 0){player1.getAttackUpgrade();}
+            else{player1.getHealthUpgrade();}
         }
         return currentState;
     }

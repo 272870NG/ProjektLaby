@@ -9,16 +9,16 @@ public class PlayerMove implements GameAction{
 
     @Override
     public Map<GameObject, Country> applyAction(Map<GameObject, Country> currentState, List<Country> europe) {
-        GameObject player = currentState.keySet()
-                .stream()
-                .filter(gameObject -> gameObject instanceof Player)
-                .findFirst()
-                .orElseThrow();
+
+        GameObjectFinder finder = new GameObjectFinder();
+
+        GameObject player = finder.findPlayer(currentState);
         Country currentPlayerCountry = currentState.get(player);
 
 
-        //wybierz kolejny kraj (dodać do innej klasy)
+        //wybierz kolejny kraj
         // int countryOfChoice = new UserPrompter().askForNextCountry(currentPlayerCountry,europe);
+
 
         int currentPlayerCountryIndex = europe.indexOf(currentPlayerCountry) + 1;
         // stworz nowy stan w oparciu o stary

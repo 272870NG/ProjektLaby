@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public class GameStateHolder {
     private static List<GameRule> RULES_TO_APPLY_EACH_ACTION = List.of(
-            new PlayerEncountersMerchant(), new PlayerEncountersBandit()
+            new PlayerEncountersMerchant(), new PlayerEncountersBandit(), new BanditEncountersMerchant()
     );
 
     private final List<Country> europe;
@@ -45,11 +45,8 @@ public class GameStateHolder {
     public String getDestinationName(){return destination.getName();}
     public Country findPlayerCountry() {
         try {
-            GameObject player = gameMap.keySet()
-                    .stream()
-                    .filter(it -> it instanceof Player)
-                    .findFirst()
-                    .orElseThrow();
+            GameObjectFinder finder = new GameObjectFinder();
+            GameObject player = finder.findPlayer(gameMap);
 
             return gameMap.get(player);
         }

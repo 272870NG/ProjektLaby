@@ -1,11 +1,11 @@
 package org.example;
 
 public class Bandit implements GameObject{
-    private int unitAttackPower;
-    private int healthPoints;
+    private static int unitAttackPower;
+    private static int healthPoints;
     public Bandit (){
-        this.healthPoints = 150;
-        this.unitAttackPower = 50;
+        healthPoints = 150;
+        unitAttackPower = 50;
     }
 
     @Override
@@ -17,9 +17,9 @@ public class Bandit implements GameObject{
     @Override
     public int getHealth() {return healthPoints;}
 
-    @Override
-    public void getWeapon() {unitAttackPower *= 3;}
 
-    @Override
-    public void getSteroids() {healthPoints *= 5;}
+    public void getAttackUpgrade() {unitAttackPower *= 3;}
+
+
+    public void getHealthUpgrade() {healthPoints *= 5;}
 }

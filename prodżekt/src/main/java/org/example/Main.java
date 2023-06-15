@@ -8,8 +8,11 @@ public class Main {
         GameStateHolder gameState = FixedGameState.get();
         List<GameAction> performedActions = List.of(
                 new PlayerMove(),
+                new BanditMove(),
                 new PlayerMove(),
-                new PlayerMove()
+                new BanditMove(),
+                new PlayerMove(),
+                new BanditMove()
         );
         System.out.println("--------------------------------------");
         System.out.println("Your destination is: " + gameState.getDestinationName());

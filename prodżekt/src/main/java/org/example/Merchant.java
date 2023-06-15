@@ -19,11 +19,4 @@ public class Merchant implements GameObject{
     public int getHealth() {
         return healthPoints;
     }
-
-    @Override
-    public void getWeapon() {}
-
-    @Override
-    public void getSteroids() {
-    }
 }

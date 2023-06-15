@@ -11,24 +11,16 @@ public class PlayerEncountersBandit implements GameRule {
         System.out.println("Player fights bandit?");
         System.out.println("---------------------");
         // Znajdz gracza
-        GameObject player = currentState.keySet()
-                .stream()
-                .filter(gameObject -> gameObject instanceof Player)
-                .findFirst()
-                .orElseThrow();
+        GameObjectFinder finder = new GameObjectFinder();
+
+        GameObject player = finder.findPlayer(currentState);
         Country currentPlayerCountry = currentState.get(player);
+
         // Znajdz bandyte
-        Country currentBanditCountry;
-        GameObject bandit;
-        try {
-            bandit = currentState.keySet()
-                    .stream()
-                    .filter(gameObject -> gameObject instanceof Bandit)
-                    .findFirst()
-                    .orElseThrow();
-            currentBanditCountry = currentState.get(bandit);
-        }
-        catch(Exception NoSuchEllementException){return currentState;}
+        GameObject bandit = finder.findBandit(currentState);
+        if(bandit == null){return currentState;}
+        Country currentBanditCountry = currentState.get(bandit);
+
 
 
 
@@ -50,6 +42,7 @@ public class PlayerEncountersBandit implements GameRule {
 //                return newState;
 //            }
 //        }
+
         if (currentBanditCountry.equals(currentPlayerCountry)) {
             System.out.println("Player fights bandit");
             System.out.println("--------------------");

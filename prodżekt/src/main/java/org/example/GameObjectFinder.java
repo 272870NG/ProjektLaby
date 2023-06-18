@@ -24,6 +24,5 @@ public class GameObjectFinder {
                 .filter(gameObject -> gameObject instanceof Merchant)
                 .findFirst()
                 .orElseThrow();
-
     }
 }

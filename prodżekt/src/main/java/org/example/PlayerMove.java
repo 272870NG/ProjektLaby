@@ -15,17 +15,11 @@ public class PlayerMove implements GameAction{
         GameObject player = finder.findPlayer(currentState);
         Country currentPlayerCountry = currentState.get(player);
 
+        int countryOfChoice = new UserPrompter().askForNextCountry(currentPlayerCountry,europe);
 
-        //wybierz kolejny kraj
-        // int countryOfChoice = new UserPrompter().askForNextCountry(currentPlayerCountry,europe);
-
-
-        int currentPlayerCountryIndex = europe.indexOf(currentPlayerCountry) + 1;
-        // stworz nowy stan w oparciu o stary
+        // int currentPlayerCountryIndex = europe.indexOf(currentPlayerCountry) + 1;
         HashMap<GameObject,Country> newState = new HashMap<>(currentState);
-        // umiesc gracza
-        newState.put(player, europe.get(currentPlayerCountryIndex));
-        // zwroc stan
+        newState.put(player, europe.get(countryOfChoice));
         return newState;
     }
 }

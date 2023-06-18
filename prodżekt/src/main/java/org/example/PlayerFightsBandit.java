@@ -9,10 +9,8 @@ public class PlayerFightsBandit implements GameAction{
 
         GameObjectFinder finder = new GameObjectFinder();
 
-        // Znajdz gracza
         GameObject player = finder.findPlayer(currentState);
 
-        // Znajdz bandyte
         GameObject bandit = finder.findBandit(currentState);
 
         do{

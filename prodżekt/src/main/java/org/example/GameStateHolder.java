@@ -35,7 +35,6 @@ public class GameStateHolder {
             return gameMap.keySet()
                     .stream()
                     .anyMatch(gameObject -> gameObject instanceof Player);
-
     }
 
     public boolean playerHasReachedDestination() {

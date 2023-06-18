@@ -35,33 +35,33 @@ public class FixedGameState {
                 country7,country14
         );
 
-
         Player player = new Player();
-        Country destination = europe.get((int)Math.round(Math.random() * 14 + 1));
+        Country destination = europe.get(getRandomCountryIndex());
 
-        int randomBanditCountry = 2;
-//        while(true){
-//            randomBanditCountry = (int)Math.round(Math.random() * 14 + 1);
-//            if(!destination.getName().equals(europe.get(randomBanditCountry).getName())){break;}
-//        }
+        int banditStartingCountry = 2;
+        while(true){
+            banditStartingCountry = getRandomCountryIndex();
+            if(!destination.getName().equals(europe.get(banditStartingCountry).getName())){break;}
+        }
 
         Bandit bandit = new Bandit();
 
-        int randomMerchantCountry = 1;
-//        while(true){
-//            randomMerchantCountry = (int)Math.round(Math.random() * 14 + 1);
-//            if(!destination.getName().equals(europe.get(randomMerchantCountry).getName())){break;}
-//        }
+        int merchantStartingCountry = 1;
+        while(true){
+            merchantStartingCountry = getRandomCountryIndex() ;
+            if(!destination.getName().equals(europe.get(merchantStartingCountry).getName())){break;}
+        }
 
         Merchant merchant = new Merchant();
-
 
         return new GameStateHolder(
                 europe,
                 Map.of(player, startingCountry,
-                        bandit, europe.get(randomBanditCountry),
-                        merchant, europe.get(randomMerchantCountry)),
+                        bandit, europe.get(banditStartingCountry),
+                        merchant, europe.get(merchantStartingCountry)),
                 destination
         );
     }
+
+    public static int getRandomCountryIndex(){return (int)Math.round(Math.random() * 14 + 1);}
 }

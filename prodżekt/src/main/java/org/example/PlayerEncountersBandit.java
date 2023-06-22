@@ -8,9 +8,6 @@ import java.util.Optional;
 public class PlayerEncountersBandit implements GameRule {
     @Override
     public Map<GameObject, Country> applyRule(Map<GameObject, Country> currentState, List<Country> europe) {
-        System.out.println("Player fights bandit?");
-        System.out.println("---------------------");
-
         GameObjectFinder finder = new GameObjectFinder();
 
         GameObject player = finder.findPlayer(currentState);

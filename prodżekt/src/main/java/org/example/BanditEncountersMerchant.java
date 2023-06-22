@@ -6,9 +6,6 @@ import java.util.Map;
 public class BanditEncountersMerchant implements GameRule{
     @Override
     public Map<GameObject, Country> applyRule(Map<GameObject, Country> currentState, List<Country> europe) {
-        System.out.println("Bandit encounters merchant?");
-        System.out.println("---------------------------");
-
         GameObjectFinder finder = new GameObjectFinder();
 
         GameObject merchant = finder.findMerchant(currentState);
@@ -25,6 +22,7 @@ public class BanditEncountersMerchant implements GameRule{
             System.out.println("--------------------");
             if(Math.round(Math.random()) == 1){bandit.getAttackUpgrade();}
             else{bandit.getHealthUpgrade();}
+            return new MerchantMove().applyAction(currentState,europe);
         }
         return currentState;
     }

@@ -1,5 +1,7 @@
 package org.example;
 
+import java.util.List;
+
 public interface GameActionsProvider {
-    GameAction next();
+    List<GameAction> next();
 }

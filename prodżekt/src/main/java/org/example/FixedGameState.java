@@ -3,12 +3,40 @@ package org.example;
 import java.util.List;
 import java.util.Map;
 
-public class FixedGameState {
+public class FixedGameState{
 
     static GameStateHolder get() {
 
-        Country startingCountry = new Country("Poland", List.of("Germany","Hungary","Ukraine","Slovakia"));
-        Country country1 = new Country("Ukraine",List.of("Hungary","Slovakia","Poland"));
+        List<Country> europe = createEurope();
+
+        Player player = new Player();
+        Country destination = europe.get(getRandomCountryIndex());
+
+        int banditStartingCountry = getRandomCountryIndex();
+        Bandit bandit = new Bandit();
+
+        int merchantStartingCountry;
+        while(true){
+            merchantStartingCountry = getRandomCountryIndex() ;
+            if(!europe.get(banditStartingCountry).getName().equals(europe.get(merchantStartingCountry).getName())){break;}
+        }
+
+        Merchant merchant = new Merchant();
+
+        return new GameStateHolder(
+                europe,
+                Map.of(player, europe.get(0),
+                        bandit, europe.get(banditStartingCountry),
+                        merchant, europe.get(merchantStartingCountry)),
+                destination
+        );
+    }
+
+    public static int getRandomCountryIndex(){return (int)Math.round(Math.random() * 14 + 1);}
+
+    private static List<Country> createEurope(){
+        Country startingCountry = new Country("Poland", List.of("Germany","Czechia","Ukraine","Slovakia"));
+        Country country1 = new Country("Ukraine",List.of("Hungary","Slovakia","Poland","Romania"));
         Country country2 = new Country("Germany",List.of("Poland","Czechia","Austria","France","Belgium","Netherlands"));
         Country country3 = new Country("Hungary",List.of("Romania","Slovakia","Austria","Slovenia"));
         Country country4 = new Country("Slovakia",List.of("Poland","Czechia","Hungary","Austria","Ukraine"));
@@ -20,11 +48,11 @@ public class FixedGameState {
         Country country10 = new Country("Portugal",List.of("Spain"));
         Country country11 = new Country("Slovenia",List.of("Italy","Austria","Hungary"));
         Country country12 = new Country("Switzerland",List.of("France","Austria","Germany","Italy"));
-        Country country13 = new Country("Italy",List.of("Switzerland","France","Austria"));
+        Country country13 = new Country("Italy",List.of("Switzerland","France","Austria","Slovenia"));
         Country country14 = new Country("Netherlands",List.of("Belgium","Germany"));
         Country country15 = new Country("Belgium",List.of("Netherlands","France","Germany"));
 
-        List<Country> europe = List.of(
+        return List.of(
                 startingCountry,
                 country1,country8,country15,
                 country2,country9,
@@ -34,34 +62,5 @@ public class FixedGameState {
                 country6,country13,
                 country7,country14
         );
-
-        Player player = new Player();
-        Country destination = europe.get(getRandomCountryIndex());
-
-        int banditStartingCountry = 2;
-        while(true){
-            banditStartingCountry = getRandomCountryIndex();
-            if(!destination.getName().equals(europe.get(banditStartingCountry).getName())){break;}
-        }
-
-        Bandit bandit = new Bandit();
-
-        int merchantStartingCountry = 1;
-        while(true){
-            merchantStartingCountry = getRandomCountryIndex() ;
-            if(!destination.getName().equals(europe.get(merchantStartingCountry).getName())){break;}
-        }
-
-        Merchant merchant = new Merchant();
-
-        return new GameStateHolder(
-                europe,
-                Map.of(player, startingCountry,
-                        bandit, europe.get(banditStartingCountry),
-                        merchant, europe.get(merchantStartingCountry)),
-                destination
-        );
     }
-
-    public static int getRandomCountryIndex(){return (int)Math.round(Math.random() * 14 + 1);}
 }

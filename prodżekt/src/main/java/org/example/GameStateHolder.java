@@ -5,9 +5,12 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
-public class GameStateHolder {
-    private static List<GameRule> RULES_TO_APPLY_EACH_ACTION = List.of(
-            new PlayerEncountersMerchant(), new PlayerEncountersBandit(), new BanditEncountersMerchant()
+public class GameStateHolder implements GameStateInterface{
+    private static List<GameRule> RULES_TO_APPLY_EACH_PLAYER_ACTION = List.of(
+            new PlayerEncountersMerchant(), new PlayerEncountersBandit()
+    );
+    private static List<GameRule> RULES_TO_APPLY_EACH_BANDIT_ACTION = List.of(
+            new BanditEncountersMerchant(), new PlayerEncountersBandit()
     );
 
     private final List<Country> europe;
@@ -26,8 +29,14 @@ public class GameStateHolder {
     public void applyGameAction(GameAction gameAction) {
         gameMap = gameAction.applyAction(gameMap, europe);
 
-        for (GameRule rule: RULES_TO_APPLY_EACH_ACTION) {
-            this.gameMap = rule.applyRule(this.gameMap, europe);
+        if(gameAction instanceof PlayerMove) {
+            for (GameRule rule : RULES_TO_APPLY_EACH_PLAYER_ACTION) {
+                this.gameMap = rule.applyRule(this.gameMap, europe);
+            }
+        } else if (gameAction instanceof BanditMove) {
+            for (GameRule rule : RULES_TO_APPLY_EACH_BANDIT_ACTION) {
+                this.gameMap = rule.applyRule(this.gameMap, europe);
+            }
         }
     }
 

@@ -19,7 +19,6 @@ public class PlayerFightsBandit implements GameAction{
             }else{
                 player.takeDamage(bandit.attack());
             }
-            System.out.println("Player hp:" + player.getHealth() + " Bandit hp: " + bandit.getHealth());
         }while(player.getHealth() > 0 && bandit.getHealth() > 0);
         if(player.getHealth() <= 0){currentState.remove(player);}
         else {

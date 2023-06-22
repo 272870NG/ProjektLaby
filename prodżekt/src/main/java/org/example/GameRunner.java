@@ -1,18 +1,18 @@
 package org.example;
 
 public class GameRunner {
-    private final GameStateHolder gameStateHolder;
+    private final GameStateInterface gameStateInterface;
     private final GameActionsProvider gameActionsProvider;
 
-    public GameRunner(GameStateHolder gameStateHolder, GameActionsProvider gameActionsProvider) {
-        this.gameStateHolder = gameStateHolder;
+    public GameRunner(GameStateInterface gameStateHolder, GameActionsProvider gameActionsProvider) {
+        this.gameStateInterface = gameStateHolder;
         this.gameActionsProvider = gameActionsProvider;
     }
 
     public void run() {
         do {
-            GameAction nextAction = gameActionsProvider.next();
-            gameStateHolder.applyGameAction(nextAction);
-        } while (gameStateHolder.playerIsAlive() && !gameStateHolder.playerHasReachedDestination());
+            GameAction nextAction = gameActionsProvider.next().get((int)Math.round(Math.random()));
+            gameStateInterface.applyGameAction(nextAction);
+        } while (gameStateInterface.playerIsAlive() && !gameStateInterface.playerHasReachedDestination());
     }
 }

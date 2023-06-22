@@ -5,9 +5,6 @@ import java.util.List;
 public class Country {
     private final String name;
     private final List<String> neighbours;
-    public String getName() {
-        return name;
-    }
 
     public Country(String name, List<String> neighbours) {
         this.name = name;
@@ -16,7 +13,9 @@ public class Country {
 
     public List<String> getNeighbours(){return neighbours;}
 
-
+    public String getName() {
+        return name;
+    }
 
     @Override
     public String toString() {
